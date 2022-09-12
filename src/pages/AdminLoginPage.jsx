@@ -29,16 +29,11 @@ const AdminLoginPage = () => {
     let sdk = new MkdSDK();
     sdk.login(data)
     .then((res) =>{
-      if(res.token) {
         dispatch({
           type: "LOGIN",
           payload: res
         })
         navigate("../admin/dashboard")
-      }
-      else{
-        throw new Error("Login failed")
-      }
     })
   };
 

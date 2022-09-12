@@ -13,6 +13,10 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
+      localStorage.setItem("user", action.payload.user_id)
+      localStorage.setItem("token", action.payload.token)
+      localStorage.setItem("role", action.payload.role,)
+      localStorage.setItem("isAuthenticated", true)
       return {
         ...state,
         user: action.payload.user_id,
@@ -48,8 +52,8 @@ const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   React.useEffect(() => {
-    //TODO
-  }, []);
+   tokenExpireError(dispatch, state.globalMessage);
+  }, [state]);
 
   return (
     <AuthContext.Provider
