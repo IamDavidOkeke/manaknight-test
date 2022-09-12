@@ -13,8 +13,28 @@ export default function MkdSDK() {
     this._table = table;
   };
   
-  this.login = async function (email, password, role) {
-    //TODO
+  this.login = async function (data) {
+    data.role = "admin";
+    async function postData(url, data) {
+      const response = await fetch(url, {
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json',
+           'x-project' : 'cmVhY3R0YXNrOjVmY2h4bjVtOGhibzZqY3hpcTN4ZGRvZm9kb2Fjc2t5ZQ=='
+        },
+        body: JSON.stringify(data) 
+      });
+      return response.json(); 
+    }
+    
+    return postData(this._baseurl + `/v2/api/lambda/login`, data)
+      .then((data) => {
+        return data
+      })
+      .catch((error) => {
+        throw new Error(error.message);
+      })
+    
   };
 
   this.getHeader = function () {
