@@ -5,7 +5,7 @@ import * as yup from "yup";
 import MkdSDK from "../utils/MkdSDK";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../authContext"
-import { showToast } from "../globalContext"
+import {  GlobalContext } from "../globalContext"
 
 
 const AdminLoginPage = () => {
@@ -17,6 +17,7 @@ const AdminLoginPage = () => {
     .required();
 
   const { dispatch } = React.useContext(AuthContext);
+  const globalContext =  React.useContext(GlobalContext);
   const navigate = useNavigate();
   const {
     register,
@@ -35,7 +36,9 @@ const AdminLoginPage = () => {
           type: "LOGIN",
           payload: res
         })
-        showToast(dispatch, "Logged in")
+       globalContext.dispatch({ type: "SNACKBAR", payload: {
+          message : "Logged in"
+        } })
         navigate("../admin/dashboard")
     })
   };

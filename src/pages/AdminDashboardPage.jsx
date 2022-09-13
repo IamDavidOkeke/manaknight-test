@@ -3,12 +3,14 @@ import MkdSDK from "../utils/MkdSDK";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../authContext";
 import SnackBar from "../components/SnackBar";
+import { showToast } from "../globalContext"
 
 
 
 const AdminDashboardPage = () => {
   const [videos, setVideo] = useState([])
   const [page, setPage] = useState(0)
+
 
   React.useEffect(() => {
     let sdk = new MkdSDK();
@@ -18,6 +20,8 @@ const AdminDashboardPage = () => {
 
    const navigate = useNavigate();
    const { dispatch } = React.useContext(AuthContext);
+
+   showToast(dispatch, "Logged in")
 
    const logout = function (){
     dispatch({
@@ -52,7 +56,7 @@ const AdminDashboardPage = () => {
 
   return (
     <>
-      <div className=" ">
+      <div className="" >
         <div>
           <button className="bg-blue-500 hover:bg-blue-700 text-white  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           onClick ={logout}> Logout </button>
