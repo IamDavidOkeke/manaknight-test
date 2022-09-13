@@ -4,7 +4,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import MkdSDK from "../utils/MkdSDK";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../authContext";
+import { AuthContext } from "../authContext"
+import { showToast } from "../globalContext"
+
 
 const AdminLoginPage = () => {
   const schema = yup
@@ -33,6 +35,7 @@ const AdminLoginPage = () => {
           type: "LOGIN",
           payload: res
         })
+        showToast(dispatch, "Logged in")
         navigate("../admin/dashboard")
     })
   };
